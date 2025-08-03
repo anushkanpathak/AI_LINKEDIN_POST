@@ -1,21 +1,4 @@
 
-# from task import Task
-
-# class Crew:
-#     def __init__(self, tasks):
-#         self.tasks = tasks
-#         self.context = ""
-#         self.log = []
-
-#     def run(self, initial_input):
-#         self.context = initial_input
-#         for task in self.tasks:
-#             out = task.run(self.context)
-#             self.log.append((task.name, out))
-#             self.context += f"\n[{task.name}]: {out}"
-#         return self.log
-
-
 from task import Task
 
 class Crew:
