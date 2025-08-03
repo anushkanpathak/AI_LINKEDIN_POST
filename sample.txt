@@ -1,0 +1,9 @@
+Mentor: Can you share one project that really changed how you see problem-solving?
+
+Student: Yes! During my third semester, I joined a team working on an AI-powered attendance system. Initially, I thought it was just another class project. But soon, I realized we were solving a real pain point—manual attendance tracking in large classrooms.
+
+Student: I was responsible for integrating facial recognition with the database. At first, nothing worked. I spent nights debugging Python scripts, adjusting lighting conditions, and cleaning the dataset.
+
+Student: One breakthrough moment was when I replaced the default OpenCV model with a pre-trained deep learning model. Accuracy shot up, and it started working consistently in different environments.
+
+Student: That project gave me confidence and clarity—I realized I enjoy solving real-world problems using AI. Now I’m leading my own team for our final year project!

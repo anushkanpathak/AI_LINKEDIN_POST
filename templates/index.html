@@ -1,0 +1,636 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>AI LinkedIn Post Generator</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Transcript to Generate LinkedIn Post</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="transcript" accept=".txt" required>
+      <button type="submit">Generate Post</button>
+    </form>
+    <p>You can also edit agent logic in <code>main.py</code>, <code>agent.py</code>, etc. inside your project folder.</p>
+  </div>
+</body>
+</html> -->
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>AI LinkedIn Post Generator</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Transcript to Generate LinkedIn Post</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="transcript" accept=".txt" required>
+      <button type="submit">Generate Post</button>
+    </form>
+    <p>You can also edit agent logic in <code>main.py</code>, <code>agent.py</code>, etc.</p>
+  </div>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI LinkedIn Post Generator</title>
+</head>
+<body>
+  <h2>Upload Transcript</h2>
+  <textarea id="transcript" rows="10" cols="80" placeholder="Paste your transcript here..."></textarea>
+
+  <h2>Edit Agents</h2>
+  <div id="agent-editors"></div>
+
+  <button onclick="generatePost()">Generate Post</button>
+
+  <h2>Output LinkedIn Post</h2>
+  <pre id="output"></pre>
+
+  <script>
+    let agentConfig = {}
+
+    async function loadAgents() {
+      const res = await fetch("http://localhost:5000/agents")
+      agentConfig = await res.json()
+      const container = document.getElementById("agent-editors")
+      container.innerHTML = ''
+
+      for (const [key, value] of Object.entries(agentConfig)) {
+        const section = document.createElement("div")
+        section.innerHTML = `
+          <h3>${key.toUpperCase()}</h3>
+          Name: <input value="${value.name}" id="${key}-name"><br>
+          Role: <input value="${value.role}" id="${key}-role"><br>
+          Goal: <textarea id="${key}-goal">${value.goal}</textarea><br>
+          Backstory: <textarea id="${key}-backstory">${value.backstory}</textarea><br>
+          <hr>
+        `
+        container.appendChild(section)
+      }
+    }
+
+    async function generatePost() {
+      // Update agent config based on UI
+      for (const key of Object.keys(agentConfig)) {
+        agentConfig[key].name = document.getElementById(`${key}-name`).value
+        agentConfig[key].role = document.getElementById(`${key}-role`).value
+        agentConfig[key].goal = document.getElementById(`${key}-goal`).value
+        agentConfig[key].backstory = document.getElementById(`${key}-backstory`).value
+      }
+
+      // Optionally save agents to server
+      await fetch("http://localhost:5000/agents", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(agentConfig)
+      })
+
+      const transcript = document.getElementById("transcript").value
+
+      const res = await fetch("http://localhost:5000/generate", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transcript, agents: agentConfig })
+      })
+
+      const data = await res.json()
+      document.getElementById("output").innerText = data.post
+    }
+
+    loadAgents()
+  </script>
+</body>
+</html>
+ -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Post Generator</title>
+</head>
+<body>
+  <h1>AI LinkedIn Post Generator</h1>
+
+  <textarea id="transcript" rows="10" cols="80" placeholder="Paste transcript here..."></textarea>
+
+  <div id="agent-editors"></div>
+    <button id="generate-btn">Generate Post</button>
+
+
+
+  <h3>Generated Post:</h3>
+  <pre id="output"></pre>
+
+  <script>
+  let agentConfig = {}
+
+  async function loadAgents() {
+    const res = await fetch("http://localhost:5000/agents")
+    agentConfig = await res.json()
+    const container = document.getElementById("agent-editors")
+    container.innerHTML = ''
+
+    for (const [key, value] of Object.entries(agentConfig)) {
+      const section = document.createElement("div")
+      section.innerHTML = `
+        <h3>${key.toUpperCase()}</h3>
+        Name: <input id="${key}-name" value="${value.name}"><br>
+        Role: <input id="${key}-role" value="${value.role}"><br>
+        Goal:<br><textarea id="${key}-goal" rows="2" cols="80">${value.goal}</textarea><br>
+        Backstory:<br><textarea id="${key}-backstory" rows="4" cols="80">${value.backstory}</textarea><br><hr>
+      `
+      container.appendChild(section)
+    }
+  }
+
+  async function generatePost() {
+    for (const key of Object.keys(agentConfig)) {
+      agentConfig[key].name = document.getElementById(`${key}-name`).value
+      agentConfig[key].role = document.getElementById(`${key}-role`).value
+      agentConfig[key].goal = document.getElementById(`${key}-goal`).value
+      agentConfig[key].backstory = document.getElementById(`${key}-backstory`).value
+    }
+
+    document.getElementById("output").innerText = "⏳ Generating post..."
+
+    await fetch("http://localhost:5000/agents", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(agentConfig)
+    })
+
+    const transcript = document.getElementById("transcript").value
+
+    const res = await fetch("http://localhost:5000/generate", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ transcript, agents: agentConfig })
+    })
+
+    const data = await res.json()
+    document.getElementById("output").innerText = "✅ Done:\n\n" + data.post
+  }
+
+  // Bind click event after DOM is loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    loadAgents()
+    document.getElementById("generate-btn").addEventListener("click", generatePost)
+  })
+</script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>AI LinkedIn Post Generator</title>
+</head>
+<body>
+  <h1>LinkedIn Post Generator</h1>
+
+  <textarea id="transcript" rows="10" cols="80" placeholder="Paste transcript here..."></textarea><br><br>
+  <button id="generate-btn">Generate Post</button>
+
+  <h2>Generated Post:</h2>
+  <div id="result"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("generate-btn").addEventListener("click", generatePost);
+    });
+
+    async function generatePost() {
+      const transcript = document.getElementById("transcript").value;
+      
+      const response = await fetch("http://localhost:5000/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ transcript: transcript, agents: ["TranscriptReader", "PostWriter"] })
+      });
+
+      const data = await response.json();
+      document.getElementById("result").innerText = data.post;
+    }
+  </script>
+</body>
+</html> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI LinkedIn Post Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>LinkedIn Post Generator</h1>
+
+  <textarea id="transcript" rows="10" cols="80" placeholder="Paste your transcript here..."></textarea><br>
+  <button onclick="generatePost()">Generate Post</button>
+
+  <h2>Generated Post</h2>
+  <div id="output"></div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> -->
+
+
+
+<!-- templates/index.html -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Post Generator</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Upload Transcript</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="transcriptFile" name="transcript" accept=".txt" required />
+      <br>
+      <button type="submit">Generate Post</button>
+    </form>
+    <div id="result" style="margin-top: 20px;"></div>
+    
+
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html> -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Transcript to LinkedIn Post</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Generate LinkedIn Post from Transcript</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="transcriptFile" name="transcript" accept=".txt" />
+      <button type="submit">Generate Post</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
+ -->
+
+
+
+
+
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI LinkedIn Post Generator</title>
+</head>
+<body style="font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px;">
+
+    <h2>📄 Upload Transcript</h2>
+    <form action="/generate" method="post" enctype="multipart/form-data">
+        <input type="file" name="transcript" required>
+        <button type="submit">Generate LinkedIn Post</button>
+    </form>
+
+    {% if post %}
+        <hr>
+        <h2>✅ Generated LinkedIn Post</h2>
+        <pre style="background: #f4f4f4; padding: 10px;">{{ post }}</pre>
+    {% endif %}
+
+    <hr>
+    <h2>🧑‍💻 Developer Panel - View & Edit Python Files</h2>
+
+    <label for="fileSelect">Choose a Python file:</label>
+    <select id="fileSelect">
+        <option value="main.py">main.py</option>
+        <option value="agent.py">agent.py</option>
+        <option value="crew.py">crew.py</option>
+        <option value="task.py">task.py</option>
+        <option value="my_llm.py">my_llm.py</option>
+    </select>
+
+    <button onclick="loadCode()">📂 View</button>
+    <button onclick="saveCode()">💾 Save</button>
+
+    <br><br>
+    <textarea id="codeBox" style="width:100%; height:400px; font-family: monospace;"></textarea>
+
+    <script>
+        async function loadCode() {
+            const filename = document.getElementById("fileSelect").value;
+            const res = await fetch(`/code/${filename}`);
+            const data = await res.json();
+            document.getElementById("codeBox").value = data.code || data.error;
+        }
+
+        async function saveCode() {
+            const filename = document.getElementById("fileSelect").value;
+            const newCode = document.getElementById("codeBox").value;
+
+            const res = await fetch(`/code/${filename}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code: newCode })
+            });
+
+            const result = await res.json();
+            alert(result.message || result.error || "Unknown response");
+        }
+    </script>
+
+</body>
+</html> -->
+
+
+<!-- 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI LinkedIn Post Generator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 40px;
+            background: #f8f8f8;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #ccc;
+            max-width: 600px;
+            margin: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0077b5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        button:hover {
+            background: #005f8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Transcript to Generate LinkedIn Post</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="transcript" required><br><br>
+            <button type="submit">Generate Post</button>
+        </form>
+        <textarea id="result" placeholder="Generated post will appear here..."></textarea>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const resultBox = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            resultBox.value = "⏳ Generating... Please wait...";
+
+            try {
+                const res = await fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (data.post) {
+                    resultBox.value = data.post;
+                } else {
+                    resultBox.value = data.error || "⚠️ Something went wrong.";
+                }
+            } catch (err) {
+                resultBox.value = "❌ Server error.";
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI LinkedIn Post Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .output { margin-top: 20px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>Upload Transcript to Generate LinkedIn Post</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="transcript" required>
+        <button type="submit">Generate Post</button>
+    </form>
+
+    <div class="output" id="output"></div>
+
+    <script>
+        const form = document.getElementById("uploadForm");
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch("/generate", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+            const output = document.getElementById("output");
+
+            if (result.post) {
+                output.innerText = result.post;
+            } else {
+                output.innerText = result.error || "Something went wrong.";
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI LinkedIn Post Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; }
+    form { margin-bottom: 20px; }
+    textarea { width: 100%; height: 200px; }
+  </style>
+</head>
+<body>
+  <h1>Upload Transcript to Generate LinkedIn Post</h1>
+  <form action="/generate" method="post" enctype="multipart/form-data">
+    <input type="file" name="transcript" required>
+    <button type="submit">Generate</button>
+  </form>
+
+  {% if result %}
+    <h2>Generated Post:</h2>
+    <textarea readonly>{{ result }}</textarea>
+  {% endif %}
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LinkedIn Post Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005fa3;
+        }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+            color: blue;
+        }
+        #result {
+            margin-top: 30px;
+            white-space: pre-wrap;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>LinkedIn Post Generator</h1>
+
+    <form id="generateForm" action="/generate" method="post" enctype="multipart/form-data">
+        <label for="transcript">Upload transcript (.txt):</label>
+        <input type="file" name="transcript" id="transcript" required>
+        <br>
+        <button type="submit">Generate Post</button>
+    </form>
+
+    <div id="status"></div>
+    <div id="result"></div>
+
+    <script>
+    document.getElementById("generateForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // prevent default form submission
+        const statusDiv = document.getElementById("status");
+        const resultDiv = document.getElementById("result");
+        const formData = new FormData(this);
+
+        // Show loading status
+        statusDiv.innerText = "🧠 LLM is loading… Please wait...";
+        resultDiv.innerText = "";
+
+        fetch("/generate", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.post) {
+                statusDiv.innerText = "✅ Post generated successfully!";
+                resultDiv.innerText = data.post;
+            } else if (data.error) {
+                statusDiv.innerText = "❌ Error: " + data.error;
+                resultDiv.innerText = "";
+            }
+        })
+        .catch(error => {
+            statusDiv.innerText = "❌ Error: " + error;
+            resultDiv.innerText = "";
+        });
+    });
+    </script>
+</body>
+</html>
